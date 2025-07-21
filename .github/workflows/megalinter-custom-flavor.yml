@@ -31,5 +31,4 @@ jobs:
           name: megalinter-custom-flavor-artifacts
           path: |
             megalinter-reports/
-            mega-linter.log
-          retention-days: 5
+          retention-days: 365
