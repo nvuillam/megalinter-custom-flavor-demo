@@ -1,0 +1,35 @@
+name: Build MegaLinter Custom Flavor
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-custom-flavor:
+    name: Build Custom MegaLinter Flavor
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Build MegaLinter Custom Flavor
+        uses: oxsecurity/megalinter/flavors/custom-builder@alpha
+        env:
+          # Add any environment variables needed for the build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: megalinter-custom-flavor-artifacts
+          path: |
+            megalinter-reports/
+            mega-linter.log
+          retention-days: 5

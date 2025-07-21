@@ -1,0 +1,9 @@
+label: Demo Custom Flavor
+linters: 
+  - BASH_SHELLCHECK
+  - BASH_SHFMT
+  - CSS_STYLELINT
+  - DOCKERFILE_HADOLINT
+  - JSON_V8R
+  - PYTHON_BLACK
+  - YAML_V8R
