@@ -1,0 +1,15 @@
+name: "MegaLinter Custom Flavor"
+author: "Nicolas Vuillamy"
+description: "MegaLinter Custom Flavor build from MegaLinter v9"
+outputs:
+  has_updated_sources:
+    description: "0 if no source file has been updated, 1 if source files has been updated"
+runs:
+  using: "docker"
+  image: "ghcr.io/nvuillam/megalinter-custom-flavor-demo/megalinter-custom-flavor:latest"
+  args:
+    - "-v"
+    - "/var/run/docker.sock:/var/run/docker.sock:rw"
+branding:
+  icon: "check"
+  color: "green"
