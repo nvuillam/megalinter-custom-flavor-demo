@@ -45,18 +45,20 @@ jobs:
         run: |
           # Replace "/" with "_" in repository name for image naming
           IMAGE_NAME=$(echo "${{ github.repository }}" | tr '/' '_')
-          
+          # Set the same image version than LABEL org.opencontainers.image.version of $IMAGE_NAME
+          IMAGE_VERSION=$(docker inspect --format='{{index .Config.Labels "org.opencontainers.image.version"}}' $IMAGE_NAME)
+
           # Tag the existing image built in the previous step
           docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
-          docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}
+          docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:$IMAGE_VERSION
           
           # Push both tags
           docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
-          docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:$IMAGE_VERSION
 
           # Echo newly pushed image tags
           echo "Pushed custom flavor image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest"
-          echo "Pushed custom flavor image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}"
+          echo "Pushed custom flavor image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:$IMAGE_VERSION"
 
       - name: Upload build artifacts
         if: always()
