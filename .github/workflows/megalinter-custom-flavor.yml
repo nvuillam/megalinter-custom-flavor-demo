@@ -31,7 +31,7 @@ jobs:
           # Add any environment variables needed for the build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CUSTOM_FLAVOR_BUILD_REPO: ${{ github.repository }}
-          CUSTOM_FLAVOR_BUILD_REPO_URL: ${{ github.repository_url }}
+          CUSTOM_FLAVOR_BUILD_REPO_URL: ${{ github.repositoryUrl }}
           CUSTOM_FLAVOR_BUILD_USER: ${{ github.actor }}
       
       - name: Log in to GitHub Container Registry
@@ -47,6 +47,8 @@ jobs:
           IMAGE_NAME=$(echo "${{ github.repository }}" | tr '/' '_')
           # Set the same image version than LABEL org.opencontainers.image.version of $IMAGE_NAME
           IMAGE_VERSION=$(docker inspect --format='{{index .Config.Labels "org.opencontainers.image.version"}}' $IMAGE_NAME)
+          echo "Custom flavor Image Name: $IMAGE_NAME"
+          echo "Custom flavor Image Version: $IMAGE_VERSION"
 
           # Tag the existing image built in the previous step
           docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
