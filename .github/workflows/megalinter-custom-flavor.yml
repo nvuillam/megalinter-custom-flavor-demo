@@ -41,11 +41,3 @@ jobs:
           CUSTOM_FLAVOR_BUILD_REPO_URL: ${{ github.repositoryUrl }}
           CUSTOM_FLAVOR_BUILD_USER: ${{ github.actor }}
       
-      - name: Upload build artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: megalinter-custom-flavor-artifacts
-          path: |
-            megalinter-reports/
-          retention-days: 365
