@@ -43,14 +43,21 @@ jobs:
       
       - name: Tag and Push Docker Image
         run: |
-          # Tag the existing megalinter-custom image built in the previous step
-          docker tag megalinter-custom ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
-          docker tag megalinter-custom ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}
+          # Replace "/" with "_" in repository name for image naming
+          IMAGE_NAME=$(echo "${{ github.repository }}" | tr '/' '_')
+          
+          # Tag the existing image built in the previous step
+          docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
+          docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}
           
           # Push both tags
           docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest
           docker push ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}
-        
+
+          # Echo newly pushed image tags
+          echo "Pushed custom flavor image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:latest"
+          echo "Pushed custom flavor image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/megalinter-custom-flavor:${{ github.sha }}"
+
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v4
