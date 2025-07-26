@@ -33,7 +33,7 @@ jobs:
 
       # Log in to Docker Hub only if credentials are provided
       - name: Log in to Docker Hub
-        if: "${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}"
+        if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
         uses: docker/login-action@v3
         with:
           registry: docker.io
@@ -43,10 +43,10 @@ jobs:
       - name: Build MegaLinter Custom Flavor
         uses: oxsecurity/megalinter/flavors/custom-builder@alpha
         with:
-          megalinter-custom-flavor-builder-tag: "${{ github.event_name == 'release' ? github.event.release.tag_name : 'alpha' }}"
-          is-latest: "${{ github.event_name == 'release' ? 'true' : 'false' }}"
+          megalinter-custom-flavor-builder-tag: ${{ github.event_name == 'release' && github.event.release.tag_name || 'alpha' }}
+          is-latest: ${{ github.event_name == 'release' && 'true' || 'false' }}
           upload-to-ghcr: "true"
-          upload-to-dockerhub: "${{ (secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '') ? 'true' : 'false' }}"
+          upload-to-dockerhub: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' && 'true' || 'false' }}
           dockerhub-repo: "nvuillam"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
