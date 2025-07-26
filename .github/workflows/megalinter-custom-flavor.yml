@@ -31,6 +31,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Log in to Docker Hub only if credentials are provided
       - name: Log in to Docker Hub
         if: "${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}"
         uses: docker/login-action@v3
