@@ -23,5 +23,3 @@ Follow [MegaLinter installation guide](https://megalinter.io/latest/install-assi
 
 - GitHub Action: On MegaLinter step in .github/workflows/mega-linter.yml, define `uses: nvuillam/megalinter-custom-flavor-demo@main`
 - Docker image: Replace official MegaLinter image by `ghcr.io/nvuillam/megalinter-custom-flavor-demo/megalinter-custom-flavor:latest`
-
-:)

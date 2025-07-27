@@ -6,7 +6,8 @@ outputs:
     description: "0 if no source file has been updated, 1 if source files has been updated"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/oxsecurity/megalinter-documentation:alpha"
+  # You can manually update the Docker image version here, or use the latest tag
+  image: "docker://ghcr.io/nvuillam/megalinter-custom-flavor-demo/megalinter-custom-flavor:alpha"
   args:
     - "-v"
     - "/var/run/docker.sock:/var/run/docker.sock:rw"
