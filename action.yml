@@ -1,6 +1,6 @@
-name: "MegaLinter Custom Flavor"
+name: "MegaLinter Custom Flavor: Demo Custom Flavor"
 author: "Nicolas Vuillamy"
-description: "MegaLinter Custom Flavor build from MegaLinter v9"
+description: "MegaLinter Custom Flavor Demo Custom Flavor"
 outputs:
   has_updated_sources:
     description: "0 if no source file has been updated, 1 if source files has been updated"
