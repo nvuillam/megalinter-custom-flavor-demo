@@ -1,5 +1,6 @@
+# MegaLinter Custom Flavor configuration
 label: Demo Custom Flavor
-linters: 
+linters:
   - BASH_SHELLCHECK
   - BASH_SHFMT
   - CSS_STYLELINT
